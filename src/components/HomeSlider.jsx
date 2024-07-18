@@ -18,7 +18,9 @@ const HomeSlider = ({ type }) => {
   // console.log(type);
   const fetchMovies = async () => {
     const respons = await axios.get(
-      `https://api.themoviedb.org/3/trending/${type}/day?api_key=029484b23960c56df6f1d7896bf21408&language=en-US`
+      `https://api.themoviedb.org/3/trending/${type}/day?api_key=${
+        import.meta.env.VITE_API_KEY
+      }&language=en-US`
     );
     return respons.data;
   };
@@ -49,9 +51,9 @@ const HomeSlider = ({ type }) => {
                 style={{
                   backgroundImage: `url(${imgURL}${value.backdrop_path})`,
                 }}
-                className="h-[90vh] bg-cover bg-center pt-[90px] space-y-5 px-4"
+                className="h-[90vh] bg-cover bg-center pt-[90px] md:pt-[60px] space-y-12 px-4"
               >
-                <h1 className="text-white text-3xl font-bold isolate md:text-5xl ">
+                <h1 className="text-white text-4xl font-bold isolate md:text-5xl text-balance">
                   {value.title || value.name}
                 </h1>
                 <p className="text-white isolate font-normal">
@@ -76,7 +78,7 @@ const HomeSlider = ({ type }) => {
                 </Link>
                 <div className="text-white isolate">
                   <span className=" font-medium">OverView : </span>
-                  <p className=" text-balance font-light md:w-[700px] line-clamp-3">
+                  <p className=" text-balance font-light md:w-[700px] line-clamp-5 md:line-clamp-3">
                     {value.overview}
                   </p>
                 </div>

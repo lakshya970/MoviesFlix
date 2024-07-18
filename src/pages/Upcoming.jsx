@@ -10,10 +10,12 @@ import Heading from "../components/Heading";
 const Upcoming = () => {
   const [page, setPage] = useState(1);
   const [movie, setMovie] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+
   const fetchMovies = async () => {
     const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/upcoming?api_key=029484b23960c56df6f1d7896bf21408&language=en-US&page=${page}`
+      `https://api.themoviedb.org/3/movie/upcoming?api_key=${
+        import.meta.env.VITE_API_KEY
+      }&language=en-US&page=${page}`
     );
 
     setMovie(response.data.results);
@@ -23,28 +25,34 @@ const Upcoming = () => {
   useEffect(() => {
     fetchMovies();
   }, [page]);
+
+  if (!movie) {
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <div>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <div className="px-3">
-          <Heading title={"upcoming"} />
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            {movie.map((value) => (
-              <div key={value.id} className="my-2 mx-2">
-                <Link to={`/movie/details/${value.id}`}>
-                  <Card
-                    poster={value.poster_path}
-                    rating={value.vote_average}
-                    title={value.title || value.name}
-                  />
-                </Link>
-              </div>
-            ))}
-          </div>
+      <div className="px-3">
+        <Heading title={"upcoming"} />
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          {movie.map((value) => (
+            <div key={value.id} className="my-2 mx-2">
+              <Link to={`/movie/details/${value.id}`}>
+                <Card
+                  poster={value.poster_path}
+                  rating={value.vote_average}
+                  title={value.title || value.name}
+                />
+              </Link>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
+
       <div className="flex justify-between md:justify-center p-5 md:gap-96 mt-4">
         <button
           defaultValue={0}

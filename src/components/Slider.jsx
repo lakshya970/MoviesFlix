@@ -14,7 +14,9 @@ const Slider = ({ title, type, category }) => {
 
   const fetchMovies = async () => {
     const response = await axios.get(
-      `https://api.themoviedb.org/3/${type}/${category}?api_key=029484b23960c56df6f1d7896bf21408&language=en-US`
+      `https://api.themoviedb.org/3/${type}/${category}?api_key=${
+        import.meta.env.VITE_API_KEY
+      }&language=en-US`
     );
 
     return response.data;
@@ -35,13 +37,7 @@ const Slider = ({ title, type, category }) => {
         ) : (
           <Swiper {...SwiperConfing}>
             {data.results.map((value) => (
-              <SwiperSlide
-                key={value.id}
-                data-aos="fade-up"
-                data-aos-offset="200"
-                data-aos-easing="ease-in-sine"
-                data-aos-duration="400"
-              >
+              <SwiperSlide key={value.id}>
                 <Link to={`/${type}/details/${value.id}`}>
                   <Card
                     poster={value.poster_path}

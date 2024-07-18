@@ -14,7 +14,9 @@ const Search = () => {
 
   const fetchMovie = async ({ pageParam = 1 }) => {
     const response = await axios.get(
-      `https://api.themoviedb.org/3/search/movie?api_key=029484b23960c56df6f1d7896bf21408&language=en-US&page=${pageParam}&query=${query}`
+      `https://api.themoviedb.org/3/search/movie?api_key=${
+        import.meta.env.VITE_API_KEY
+      }&language=en-US&page=${pageParam}&query=${query}`
     );
     return response.data;
   };

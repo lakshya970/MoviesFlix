@@ -9,19 +9,8 @@ import Toprated from "./pages/Toprated";
 import Upcoming from "./pages/Upcoming";
 import Trending from "./pages/Trending";
 import Search from "./pages/Search";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 const App = () => {
-  useEffect(() => {
-    AOS.init({
-      offset: 200,
-      duration: 600,
-      easing: "ease-in-sine",
-      delay: 100,
-    });
-    AOS.refresh();
-  }, []);
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

@@ -143,15 +143,21 @@ const Navbar = () => {
           <motion.div
             className={`bg-black h-screen absolute inset-y-0 py-8 px-12 gap-8 font-semibold  flex-col w-80 flex justify-center text-xl md:hidden uppercase duration-300 ease-in-out z-30 ${
               isOpen ? "left-0" : "-left-full"
-            }`}
+            } `}
+            onClick={() => setIsOpen(false)}
           >
             {links.map(({ name, to, id }) => (
               <NavLink
                 to={to}
                 key={id}
-                className={`text-white font-semibold text-xl uppercase tracking-widest
-              `}
-                onClick={() => isOpen(false)}
+                //   className={`text-white font-semibold text-xl uppercase tracking-widest
+                // `}
+                className={({ isActive }) =>
+                  `${
+                    isActive ? "text-red-600" : "text-white"
+                  } hover:scale-105 duration-100 ease-in transition-all `
+                }
+                // onClick={() => isOpen(false)}
               >
                 {name}
               </NavLink>
